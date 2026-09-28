@@ -1,0 +1,36 @@
+# Build artifacts
+*.o
+*.exe
+*.elf
+*.map
+*.list
+*.hex
+*.bin
+tools/out/*.wav
+tools/out/*.csv
+.DS_Store
+firmware/Debug/
+firmware/Release/
+firmware/.settings/
+firmware/.cproject
+firmware/.project
+
+# Cursor / AI tooling (local IDE metadata — do not commit)
+.cursor/
+.cursorrules
+.cursorignore
+*.cursor/
+AGENTS.md
+CLAUDE.md
+.claude/
+.aider*
+.continue/
+.windsurf/
+.copilot/
+.github/copilot-instructions.md
+**/.cursor/**
+**/agent-transcripts/
+**/agent-tools/
+**/*cursor*plan*
+**/*.plan.md
+docs
