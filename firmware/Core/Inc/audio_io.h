@@ -7,25 +7,20 @@
 extern "C" {
 #endif
 
-/* Raw ADC rate / audio rate */
-#define AUDIO_OVERSAMPLE      8
 #define AUDIO_FS_HZ           48000
-#define AUDIO_ADC_FS_HZ       (AUDIO_FS_HZ * AUDIO_OVERSAMPLE) /* 384000 */
 #define AUDIO_BLOCK           32
-#define AUDIO_DMA_AUDIO_LEN   (AUDIO_BLOCK * 2)  /* double buffer in audio samples */
-#define AUDIO_DMA_ADC_LEN     (AUDIO_DMA_AUDIO_LEN * AUDIO_OVERSAMPLE)
+#define AUDIO_DMA_AUDIO_LEN   (AUDIO_BLOCK * 2)
 
 typedef enum {
-    AUDIO_MODE_LOOPTHROUGH = 0, /* ADC averaged -> DAC (no DSP) */
-    AUDIO_MODE_DSP         = 1, /* full dsp_chain */
-    AUDIO_MODE_SINE        = 2  /* internal 80 Hz sine -> DSP -> DAC (ADC ignored) */
+    AUDIO_MODE_SINE = 0,            /* internal 80 Hz → DSP → DAC */
+    AUDIO_MODE_USB_LOOPTHROUGH,     /* USB PCM → DAC */
+    AUDIO_MODE_USB_DSP              /* USB PCM → dsp_chain → DAC (default) */
 } audio_mode_t;
 
 void audio_io_init(audio_mode_t mode);
 void audio_io_start(void);
-void audio_io_poll(void); /* call from main loop */
+void audio_io_poll(void);
 
-/* Live monitors (for CubeIDE Live Expressions) */
 extern volatile float    g_audio_peak_in;
 extern volatile float    g_audio_peak_out;
 extern volatile float    g_audio_gain_reduction;
